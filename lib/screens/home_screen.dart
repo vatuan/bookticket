@@ -1,6 +1,8 @@
-import 'package:bookticket/screens/ticket_view.dart';
+import 'package:bookticket/utils/app_info_list.dart';
+import 'package:bookticket/utils/app_layout.dart';
 import 'package:bookticket/utils/app_styles.dart';
 import 'package:bookticket/widgets/hotel_card.dart';
+import 'package:bookticket/widgets/ticket_card.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -38,8 +40,8 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      height: 50,
-                      width: 50,
+                      height: AppLayout.getHeight(50),
+                      width: AppLayout.getWidth(50),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey.shade200,
@@ -104,11 +106,10 @@ class HomeScreen extends StatelessWidget {
                 const Gap(15),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(children: const [
-                    TicketView(),
-                    TicketView(),
-                    TicketView()
-                  ]),
+                  child: Row(
+                      children: ticketList
+                          .map((oneTicket) => TicketCard(ticket: oneTicket))
+                          .toList()),
                 ),
                 const Gap(15),
                 Row(
@@ -130,13 +131,14 @@ class HomeScreen extends StatelessWidget {
                 const Gap(15),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Row(children: const [
-                    HotelCard(),
-                    HotelCard(),
-                    HotelCard(),
-                    HotelCard()
-                  ]),
+                  child: Row(
+                      children: hotelList
+                          .map((singleHotel) => HotelCard(
+                                hotel: singleHotel,
+                              ))
+                          .toList()),
                 ),
+                Gap(AppLayout.getHeight(20)),
               ],
             ),
           ),
